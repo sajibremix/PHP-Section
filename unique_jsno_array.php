@@ -13,11 +13,11 @@ $depositeArray = array( 'deposite'=>array(
 $depositeArray = json_encode($depositeArray);
 $depositeArray = json_decode($depositeArray,true);
 
-$depositeArrayNew = super_unique($depositeArray['deposite'],'email');
+$depositeArrayNew = Json_Super_Unique($depositeArray['deposite'],'email');
 $depositeArray['deposite'] = $depositeArrayNew ;
 echo json_encode($depositeArray);
 
-function super_unique($array,$key){
+function Json_Super_Unique($array,$key){
    $temp_array = array();
    foreach ($array as &$v) {
        if (!isset($temp_array[$v[$key]]))
