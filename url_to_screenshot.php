@@ -17,7 +17,7 @@
 	$image = json_decode($image, true); 
 	$image = $image['screenshot']['data'];
 	$image = str_replace(array('_','-'),array('/','+'),$image); 	
-	echo "<img src=\"data:image/jpeg;base64,".$image."\" border='1' />";
+	echo "<img src=\"data:image/jpeg;base64,".$image."\" border='1'/>";
 ?>
 </body>
 </html>
