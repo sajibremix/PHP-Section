@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>HTML5 Canvas Winning Wheel</title>
+        <link rel="stylesheet" href="main.css" type="text/css" />
+        <script type="text/javascript" src="Winwheel.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    </head>
+    <body>
+        <div class="cg_wheel_f_fortune_wrapper" style="background-color: blue;">
+            <div class="cg_row cg_vertical_center">
+                <div class="cg_col_6_left">
+                    <div class="the_wheel" align="center" valign="center">
+                        <img class="cg_w_f_bg_image" src="bg.png">
+                        <canvas id="cg_w_f_canvas" width="434" height="434">
+                            <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+                        </canvas>
+                        <div class="cg_w_f_arrow">
+                            <img src="pointer.png" width="50">
+                        </div>
+                    </div>
+                </div>
+                <div class="cg_col_6_right">
+                    <img class="cg_shop_logo" src="logo.png">
+                    <h2>Hockey Empire special bonus unlocked!</h2>
+                    <p>You have a chance to win a nice big fat discount. Are you feeling lucky? Give it a spin.
+                        * You can spin the wheel only once.
+                        * If you win, you can claim your coupon for 15 mins only!
+                        Cheat orders will be cancelled.
+                    </p>
+                    <input class="cg_input cg_m_t_10" type="email" name="wlo_wlo_email" placeholder="Please enter your email" data-required-field="1" data-field-name="email">
+                    <div class="cg_optin_btn cg_m_t_10">Try your luck</div>
+
+                    <div class="cg_progress cg_progress-moved cg_m_t_10">
+                        <div class="cg_progress-bar" >
+                        </div> 
+                    </div> 
+                        <span>70% offers claimed. Hurry up!</span>                      
+
+                    <div class="cg_close_w_f_f">
+                        <span>No, I don't feel lucky</span><span class="cg_close_w_f_f_cross">X</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <script>
+            // Create new wheel object specifying the parameters at creation time.
+            var segments = [
+                   {'fillStyle' : '#eae56f', 'text' : 'Prize 1', 'discount_code': 'AAAAADDDDD'},
+                   {'fillStyle' : '#89f26e', 'text' : 'Prize 2', 'discount_code': 'FFFFFFFF'},
+                   {'fillStyle' : '#7de6ef', 'text' : 'Prize 3', 'discount_code': 'GGGGGG'},
+                   {'fillStyle' : '#e7706f', 'text' : 'Prize 4', 'discount_code': 'JJJJJJJJ'},
+                   {'fillStyle' : '#eae56f', 'text' : 'Prize 5', 'discount_code': 'ZZZZZZZZZ'},
+                   {'fillStyle' : '#89f26e', 'text' : 'Prize 6', 'discount_code': 'MMMMMMMM'},
+                ];
+            var theWheel = new Winwheel({
+                'numSegments'  : segments.length,     // Specify number of segments.
+                'outerRadius'  : 212,   // Set outer radius so wheel fits inside the background.
+                'textFontSize' : 20,    // Set font size as desired.
+                'segments'     : segments,
+                'animation' :           // Specify the animation to use.
+                {
+                    'type'     : 'spinToStop',
+                    'duration' : 5,     // Duration in seconds.
+                    'spins'    : segments.length,     // Number of complete spins.
+                    'callbackFinished' : alertPrize
+                }
+            });
+
+            // -------------------------------------------------------
+            // Click handler for spin button.
+            // -------------------------------------------------------
+            function startSpin()
+            {
+                theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+                theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+                theWheel.draw(); 
+                // theWheel.animation.stopAngle = 359;
+                // Ensure that spinning can't be clicked again while already running.
+                theWheel.startAnimation();
+            }
+
+            function alertPrize(indicatedSegment)
+            {
+                // Do basic alert of the segment text. You would probably want to do something more interesting with this information.
+                //alert("You have won " + indicatedSegment.text);
+                console.log('Your discount code: '+indicatedSegment.discount_code);
+            }
+        </script>
+    </body>
+</html>
